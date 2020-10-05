@@ -21,7 +21,7 @@ public class TitleScene : MonoBehaviour
             {
                 isCalledOnce = true;
                 //SceneManager.LoadScene("MenuScene");
-                FadeManager.FadeOut(2);
+                FadeManager.FadeOut(1);
                 Debug.Log("Menuへ");
             }
         }
