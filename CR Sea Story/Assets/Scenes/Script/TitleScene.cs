@@ -1,18 +1,29 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TitleScene : MonoBehaviour
 {
-    // Start is called before the first frame update
+    [SerializeField] private AudioSource ButtonSE;
     void Start()
     {
-        
+        FadeManager.FadeIn();
     }
+    bool isCalledOnce = false;
 
-    // Update is called once per frame
+    
     void Update()
     {
-        
+        if (!isCalledOnce)
+        {
+            if (Input.anyKey)
+            {
+                isCalledOnce = true;
+                //SceneManager.LoadScene("MenuScene");
+                FadeManager.FadeOut(2);
+                Debug.Log("Menuへ");
+            }
+        }
     }
 }
