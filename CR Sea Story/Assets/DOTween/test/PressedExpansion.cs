@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using DG.Tweening;
 
-public class test : MonoBehaviour
+public class PressedExpansion : MonoBehaviour
 {
     void Awake()
     {

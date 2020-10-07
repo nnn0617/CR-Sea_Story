@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using DG.Tweening;
 
-public class test2 : MonoBehaviour
+public class moving : MonoBehaviour
 {
     void Awake()
     {
@@ -10,7 +10,7 @@ public class test2 : MonoBehaviour
 
     void StartStrongButtonAnim()
     {
-        transform.DOScale(0.1f, 1f)
+        transform.DOScale(0.1f, 1.0f)
         .SetRelative(true)
         .SetEase(Ease.OutQuart)
         .SetLoops(-1, LoopType.Restart);
