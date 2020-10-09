@@ -884,9 +884,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1829694509}
   - component: {fileID: 1829694513}
-  - component: {fileID: 1829694511}
   - component: {fileID: 1829694512}
   - component: {fileID: 1829694510}
+  - component: {fileID: 1829694514}
+  - component: {fileID: 1829694511}
   - component: {fileID: 1829694515}
   m_Layer: 5
   m_Name: PvE_Button
@@ -1008,6 +1009,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1829694508}
   m_CullTransparentMesh: 0
+--- !u!114 &1829694514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1829694508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []
 --- !u!114 &1829694515
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1017,7 +1031,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1829694508}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 197406e8b2930a04f9c0be90ebef1beb, type: 3}
+  m_Script: {fileID: 11500000, guid: eca8b2325a3910b49a8d4e158d9e964b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2031524560
@@ -1030,10 +1044,11 @@ GameObject:
   m_Component:
   - component: {fileID: 2031524561}
   - component: {fileID: 2031524566}
-  - component: {fileID: 2031524562}
   - component: {fileID: 2031524565}
   - component: {fileID: 2031524564}
   - component: {fileID: 2031524563}
+  - component: {fileID: 2031524562}
+  - component: {fileID: 2031524567}
   m_Layer: 5
   m_Name: PvP_Button
   m_TagString: Untagged
@@ -1083,9 +1098,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2031524560}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 197406e8b2930a04f9c0be90ebef1beb, type: 3}
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Delegates: []
 --- !u!114 &2031524564
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1166,3 +1182,15 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2031524560}
   m_CullTransparentMesh: 0
+--- !u!114 &2031524567
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2031524560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eca8b2325a3910b49a8d4e158d9e964b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

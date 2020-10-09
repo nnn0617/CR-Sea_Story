@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using DG.Tweening;
 
 public class ButtonController : MonoBehaviour
