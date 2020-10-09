@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using DG.Tweening;
 
-public class ButtonController2 : MonoBehaviour
+public class ButtonSlideUD : MonoBehaviour
 {
     RectTransform rectTransform;
 
@@ -14,6 +14,7 @@ public class ButtonController2 : MonoBehaviour
 
     void ShowWindow()
     {
+        //　バウンド
         rectTransform.DOLocalMoveY(0f, 2f).SetEase(Ease.OutBounce);
     }
 }
