@@ -884,10 +884,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1829694509}
   - component: {fileID: 1829694513}
+  - component: {fileID: 1829694511}
   - component: {fileID: 1829694512}
   - component: {fileID: 1829694510}
   - component: {fileID: 1829694515}
-  - component: {fileID: 1829694516}
   m_Layer: 5
   m_Name: PvE_Button
   m_TagString: Untagged
@@ -960,6 +960,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1829694511
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1829694508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03b098ab20e19f8498e26e32f28fbf1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1829694512
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1008,18 +1020,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 197406e8b2930a04f9c0be90ebef1beb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1829694516
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1829694508}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab4ba3db05a1d20458504f31877f51f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2031524560
 GameObject:
   m_ObjectHideFlags: 0
@@ -1030,10 +1030,10 @@ GameObject:
   m_Component:
   - component: {fileID: 2031524561}
   - component: {fileID: 2031524566}
+  - component: {fileID: 2031524562}
   - component: {fileID: 2031524565}
   - component: {fileID: 2031524564}
   - component: {fileID: 2031524563}
-  - component: {fileID: 2031524562}
   m_Layer: 5
   m_Name: PvP_Button
   m_TagString: Untagged
@@ -1071,7 +1071,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2031524560}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab4ba3db05a1d20458504f31877f51f0, type: 3}
+  m_Script: {fileID: 11500000, guid: 03b098ab20e19f8498e26e32f28fbf1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &2031524563
