@@ -14,7 +14,7 @@ public class ButtonSlideUD : MonoBehaviour
 
     void ShowWindow()
     {
-        //　バウンド
+        //　OutBounce = バウンド
         rectTransform.DOLocalMoveY(0f, 2f).SetEase(Ease.OutBounce);
     }
 }
