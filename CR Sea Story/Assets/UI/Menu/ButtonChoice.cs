@@ -26,12 +26,11 @@ public class ButtonChoice : MonoBehaviour
             Debug.Log("選択解除");
         });
 
-        //イベントを登録
+        //EventTriggerを登録
         trigger.triggers.Add(pointEnter);
         trigger.triggers.Add(pointExit);
     }
 
-    // Update is called once per frame
     void Update()
     {
         
