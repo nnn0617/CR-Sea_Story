@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MenuScene : MonoBehaviour
+public class DUO_MenuScene : MonoBehaviour
 {
     [SerializeField] private AudioSource ButtonSE;
     void Start()
@@ -12,18 +12,13 @@ public class MenuScene : MonoBehaviour
     }
     bool isCalledOnce = false;
 
-
-    void Update()
+    public void OnClickStartButton()
     {
         if (!isCalledOnce)
         {
-            if (Input.anyKey)
-            {
-                isCalledOnce = true;
-                //SceneManager.LoadScene("MenuScene");
-                FadeManager.FadeOut(2);
-                Debug.Log("StageSelectへ");
-            }
+            isCalledOnce = true;
+            FadeManager.FadeOut(3);
+            Debug.Log("DUO_StageSelectへ");
         }
     }
 }
