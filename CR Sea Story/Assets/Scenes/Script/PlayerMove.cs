@@ -78,9 +78,10 @@ public class PlayerMove : MonoBehaviour
         //右クリックで選択キャンセル
         if (Input.GetMouseButtonDown(1))
         {
+            _moveFlag = true;
             transform.DOScale(1.0f, 0.5f).SetEase(Ease.OutElastic);
             _curState = UnitState.Idele_State;
-        }
+        }       
     }
 
     //マウスカーソルがユニット上にある場合
@@ -92,13 +93,13 @@ public class PlayerMove : MonoBehaviour
             _moveFlag = false;
             _curState = UnitState.Select_State;
         }
+    }
 
-        if(_curState == UnitState.Idele_State)
+    private void OnMouseDown()
+    {
+        if (_curState == UnitState.Idele_State)
         {
-            if (Input.GetMouseButtonDown(0))
-            {
-                _moveFlag = false;
-            }
+             _moveFlag = false;
         }
     }
 
