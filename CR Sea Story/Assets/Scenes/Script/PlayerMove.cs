@@ -171,9 +171,9 @@ public class PlayerMove : MonoBehaviour
     private Vector3Int RoundToPosition(Vector3 position)
     {
         Vector3Int afterPosition = new Vector3Int(
-            (int)Mathf.RoundToInt(position.x),
-            (int)Mathf.RoundToInt(position.y),
-            (int)Mathf.RoundToInt(position.z));
+            Mathf.RoundToInt(position.x),
+            Mathf.RoundToInt(position.y),
+            Mathf.RoundToInt(position.z));
 
         return afterPosition;
     }

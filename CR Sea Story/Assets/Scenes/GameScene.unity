@@ -5180,9 +5180,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ac9856ab1332a349a0f562b6bf56e5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _actionRange: {fileID: 0}
-  _passibleTile: {fileID: 0}
-  _attackbleTile: {fileID: 0}
+  _actionRange: {fileID: 1890909252}
+  _passibleTile: {fileID: 11400000, guid: aef434573f7939545b848beef266df10, type: 2}
+  _attackbleTile: {fileID: 11400000, guid: 5a7a26ef02ec836408bb03c0e6c71ed2, type: 2}
 --- !u!483693784 &1890909251
 TilemapRenderer:
   m_ObjectHideFlags: 0
