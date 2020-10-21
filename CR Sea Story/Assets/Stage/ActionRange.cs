@@ -38,17 +38,24 @@ public class ActionRange : MonoBehaviour, IPointerClickHandler
     //到達できるかのチェック
     void CheckPassible(Vector3Int pos, int remainStep)
     {
-        //if (_actionRange.GetTile(pos) == _ForbiddenGraund)
-        //{
-            _actionRange.SetTile(pos, _passibleTile);
+        if (_playerMove.GetSelectionFlag)
+        {
+            _actionRange.SetTile(pos, _passibleTile);//移動可能範囲表示
             --remainStep;
             if (remainStep == 0) return;
+        }
+        else
+        {
+            _actionRange.SetTile(pos, null);//移動可能範囲削除
+            --remainStep;
+            if (remainStep == 0) return;
+        }
 
-            CheckPassible(pos + Vector3Int.up, remainStep);
-            CheckPassible(pos + Vector3Int.left, remainStep);
-            CheckPassible(pos + Vector3Int.right, remainStep);
-            CheckPassible(pos + Vector3Int.down, remainStep);
-        //}
+        //再帰してremainStep分チェック&表示or非表示
+        CheckPassible(pos + Vector3Int.up, remainStep);
+        CheckPassible(pos + Vector3Int.left, remainStep);
+        CheckPassible(pos + Vector3Int.right, remainStep);
+        CheckPassible(pos + Vector3Int.down, remainStep);
     }
 
     //クリック時の処理
@@ -59,11 +66,11 @@ public class ActionRange : MonoBehaviour, IPointerClickHandler
             TileBase clickedTile = _actionRange.GetTile(_playerMove.GetMouseClickPos);
             if (clickedTile == _passibleTile)
             {
-
+                //移動
             }
             if (clickedTile == _attackbleTile)
             {
-
+                //攻撃
             }
             //else if (クリックした地点にまだ行動できるユニットがいる)
             //{

@@ -3,11 +3,12 @@ using DG.Tweening;
 
 public class PlayerMove : MonoBehaviour
 {
+    //ユニットの状態
     enum UnitState
     {
-        Idele_State,//待機状態
-        Select_State,//選択状態
-        Move_State//移動状態
+        Idle,//待機状態
+        Select,//選択状態
+        Move//移動状態
     }
 
     UnitState _curState;//ユニットの現在の状態
@@ -20,11 +21,11 @@ public class PlayerMove : MonoBehaviour
     private float _clickTime;
 
     public Vector3Int GetMouseClickPos { get { return _mousePos; } }
-    public bool GetSelectionFlag { get { return _curState == UnitState.Select_State; } }
+    public bool GetSelectionFlag { get { return _curState == UnitState.Select; } }
 
     void Start()
     {
-        _curState = UnitState.Idele_State;
+        _curState = UnitState.Idle;
         _moveFlag = false;
     }
 
@@ -32,19 +33,19 @@ public class PlayerMove : MonoBehaviour
     {
         switch (_curState)
         {
-            case UnitState.Idele_State:
+            case UnitState.Idle:
                 //クリックして離した瞬間にSelect_Stateに移行
                 if (Input.GetMouseButtonUp(0))
                 {
                     if (!_moveFlag)
                     {
-                        _curState = UnitState.Select_State;
+                        _curState = UnitState.Select;
                         transform.DOScale(1.3f, 0.5f).SetEase(Ease.OutElastic);
                     }
                 }                
                 break;
 
-            case UnitState.Select_State:
+            case UnitState.Select:
                 if (!_moveFlag)
                 {
                     if (Input.GetMouseButtonDown(0))
@@ -61,12 +62,12 @@ public class PlayerMove : MonoBehaviour
                         _moveVec = _mousePos - _startingPos;
 
                         _moveFlag = true;
-                        _curState = UnitState.Move_State;
+                        _curState = UnitState.Move;
                     }
                 }
                 break;
 
-            case UnitState.Move_State:
+            case UnitState.Move:
 
                 transform.DOScale(1.0f, 0.5f).SetEase(Ease.OutElastic);
 
@@ -80,7 +81,7 @@ public class PlayerMove : MonoBehaviour
         {
             _moveFlag = true;
             transform.DOScale(1.0f, 0.5f).SetEase(Ease.OutElastic);
-            _curState = UnitState.Idele_State;
+            _curState = UnitState.Idle;
         }       
     }
 
@@ -88,16 +89,16 @@ public class PlayerMove : MonoBehaviour
     private void OnMouseOver()
     {
         //選択状態でその場をクリックした場合はMove_Stateに移行しない
-        if (_curState == UnitState.Select_State)
+        if (_curState == UnitState.Select)
         {
             _moveFlag = false;
-            _curState = UnitState.Select_State;
+            _curState = UnitState.Select;
         }
     }
 
     private void OnMouseDown()
     {
-        if (_curState == UnitState.Idele_State)
+        if (_curState == UnitState.Idle)
         {
              _moveFlag = false;
         }
@@ -140,7 +141,7 @@ public class PlayerMove : MonoBehaviour
         }
         else
         {          
-            _curState = UnitState.Idele_State;
+            _curState = UnitState.Idle;
         }
 
         _clickTime += Time.deltaTime;
@@ -163,7 +164,7 @@ public class PlayerMove : MonoBehaviour
         else
         {
             _moveFlag = false;
-            _curState = UnitState.Idele_State;
+            _curState = UnitState.Idle;
         }
     }
 
