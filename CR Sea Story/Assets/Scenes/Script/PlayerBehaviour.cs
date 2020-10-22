@@ -1,21 +1,8 @@
 ﻿using UnityEngine;
 using DG.Tweening;
 
-public class PlayerMove : MonoBehaviour
+public class PlayerBehaviour : ActorsBehaviour
 {
-    //ユニットの状態
-    enum UnitState
-    {
-        Idle,   //待機状態
-        Select, //選択状態
-        Move,   //移動状態
-        Attack  //攻撃状態
-    }
-
-    UnitState _curState;    //ユニットの現在の状態
-
-    private int _moveRange = 3;
-    private int _attackRange = 1;
 
     private Vector3Int _startingPos;   //選択時のユニット座標
     private Vector3Int _mousePos;      //マウスカーソル座標
@@ -24,17 +11,19 @@ public class PlayerMove : MonoBehaviour
     private bool _moveFlag;
     private float _clickTime;
 
-    public int moveRange { get { return _moveRange; } }
-    public int attackRange { get { return _attackRange; } }
-
     public Vector3Int GetMouseClickPos { get { return _mousePos; } }
 
-    public bool GetSelectionFlag { get { return _curState == UnitState.Select; } }
-    public bool GetAttackFlag { get { return _curState == UnitState.Attack; } }
+    public PlayerBehaviour(int move, int attack):base(move, attack)
+    {
+        this._moveRange = move;
+        this._attackRange = attack;
+    }
 
     void Start()
     {
         _curState = UnitState.Idle;
+        _moveRange = 2;
+        _attackRange = 1;
         _moveFlag = false;
     }
 

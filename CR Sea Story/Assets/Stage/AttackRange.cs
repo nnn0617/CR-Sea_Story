@@ -7,21 +7,21 @@ public class AttackRange : MonoBehaviour
     [SerializeField] TileBase _attackbleTile;
 
     private GameObject _playerObj;
-    private PlayerMove _playerMove;
+    private PlayerBehaviour _playerBehave;
 
     void Start()
     {
-        _playerObj = GameObject.FindGameObjectWithTag("Player");
-        _playerMove = _playerObj.GetComponent<PlayerMove>();
+        _playerObj = GameObject.Find("Actors").transform.Find("Player").gameObject;
+        _playerBehave = _playerObj.GetComponent<PlayerBehaviour>();
     }
 
     void Update()
     {
         Vector3Int tempPlayerPos = FloorToPosition(_playerObj.transform.position);
-        ShowAtackbleTile(tempPlayerPos, _playerMove.attackRange);
+        ShowAtackbleTile(tempPlayerPos, _playerBehave.attackRange);
     }
 
-    //到達可能のマスの可視化
+    //攻撃可能のマスの可視化
     void ShowAtackbleTile(Vector3Int unitPos, int maxStep)
     {
         CheckAtackble(unitPos, maxStep + 1);
@@ -30,7 +30,7 @@ public class AttackRange : MonoBehaviour
     //攻撃できるかのチェック
     void CheckAtackble(Vector3Int pos, int remainStep)
     {
-        if (_playerMove.GetAttackFlag)
+        if (_playerBehave.GetAttackFlag)
         {
             _attackRange.SetTile(pos, _attackbleTile);//攻撃可能範囲表示
             --remainStep;

@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.Tilemaps;
-using UnityEngine.EventSystems;
 
 public class MoveRange : MonoBehaviour/*, IPointerClickHandler*/
 {
@@ -8,18 +7,18 @@ public class MoveRange : MonoBehaviour/*, IPointerClickHandler*/
     [SerializeField] TileBase _passibleTile;
 
     private GameObject _playerObj;
-    private PlayerMove _playerMove;
+    private PlayerBehaviour _playerBehave;
 
     void Start()
     {
-        _playerObj = GameObject.FindGameObjectWithTag("Player");
-        _playerMove = _playerObj.GetComponent<PlayerMove>();
+        _playerObj = GameObject.Find("Actors").transform.Find("Player").gameObject;
+        _playerBehave = _playerObj.GetComponent<PlayerBehaviour>();
     }
 
     void Update()
     {
         Vector3Int tempPlayerPos = FloorToPosition(_playerObj.transform.position);
-        ShowPassibleTile(tempPlayerPos, _playerMove.moveRange);
+        ShowPassibleTile(tempPlayerPos, _playerBehave.moveRange);
     }
 
     //到達可能のマスの可視化
@@ -31,7 +30,7 @@ public class MoveRange : MonoBehaviour/*, IPointerClickHandler*/
     //到達できるかのチェック
     void CheckPassible(Vector3Int pos, int remainStep)
     {
-        if (_playerMove.GetSelectionFlag)
+        if (_playerBehave.GetSelectionFlag)
         {
             _moveRange.SetTile(pos, _passibleTile);//移動可能範囲表示
             --remainStep;
