@@ -35,33 +35,30 @@ public class PlayerBehaviour : ActorsBehaviour
                 //クリックして離した瞬間にSelect_Stateに移行
                 if (Input.GetMouseButtonUp(0))
                 {
-                    if (!_moveFlag)
-                    {
-                        _curState = UnitState.Select;
-                        transform.DOScale(1.3f, 0.5f).SetEase(Ease.OutElastic);
-                    }
-                }                
+                    _curState = UnitState.Select;
+                    transform.DOScale(1.3f, 0.5f).SetEase(Ease.OutElastic);
+                }               
                 break;
 
             case UnitState.Select:
-                if (!_moveFlag)
+                if (Input.GetMouseButtonDown(0))
                 {
-                    if (Input.GetMouseButtonDown(0))
-                    {
-                        //クリックタイム取得
-                        _clickTime = Time.deltaTime;
+                    //クリックタイム取得
+                    _clickTime = Time.deltaTime;
 
-                        //マウスカーソルの座標取得
-                        _mousePos = RoundToPosition(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-                        _mousePos.z = 0;
+                    //マウスカーソルの座標取得
+                    _mousePos = RoundToPosition(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+                    _mousePos.z = 0;
 
-                        //移動距離の計算
-                        _startingPos = RoundToPosition(transform.position);
-                        _moveVec = _mousePos - _startingPos;
+                    //移動距離の計算
+                    _startingPos = RoundToPosition(transform.position);
+                    _moveVec = _mousePos - _startingPos;
 
-                        _moveFlag = true;
-                        _curState = UnitState.Move;
-                    }
+                    float range = Mathf.Abs(_moveVec.x) + Mathf.Abs(_moveVec.y);
+                    if (range > _moveRange) break;//移動可能範囲外の場合は抜ける
+
+                    _moveFlag = true;
+                    _curState = UnitState.Move;
                 }
                 break;
 
@@ -75,6 +72,17 @@ public class PlayerBehaviour : ActorsBehaviour
                 {
                     if (Input.GetMouseButtonDown(0))
                     {
+                        //マウスカーソルの座標取得
+                        _mousePos = RoundToPosition(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+                        _mousePos.z = 0;
+
+                        //移動距離の計算
+                        _startingPos = RoundToPosition(transform.position);
+                        _moveVec = _mousePos - _startingPos;
+
+                        float range = Mathf.Abs(_moveVec.x) + Mathf.Abs(_moveVec.y);
+                        if (range > _attackRange) break;//攻撃範囲外の場合は抜ける
+
                         Debug.Log("攻撃");
                         _curState = UnitState.Idle;
                     }

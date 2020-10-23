@@ -5,6 +5,7 @@ public class MoveRange : MonoBehaviour/*, IPointerClickHandler*/
 {
     [SerializeField] Tilemap _moveRange;
     [SerializeField] TileBase _passibleTile;
+    [SerializeField] TileBase _attackbleTile;
 
     private GameObject _playerObj;
     private PlayerBehaviour _playerBehave;
@@ -18,6 +19,7 @@ public class MoveRange : MonoBehaviour/*, IPointerClickHandler*/
     void Update()
     {
         Vector3Int tempPlayerPos = FloorToPosition(_playerObj.transform.position);
+        ShowAttackbleTile(tempPlayerPos, _playerBehave.moveRange + _playerBehave.attackRange);
         ShowPassibleTile(tempPlayerPos, _playerBehave.moveRange);
     }
 
@@ -25,6 +27,11 @@ public class MoveRange : MonoBehaviour/*, IPointerClickHandler*/
     void ShowPassibleTile(Vector3Int unitPos, int maxStep)
     {
         CheckPassible(unitPos, maxStep + 1);
+    }
+
+    void ShowAttackbleTile(Vector3Int unitPos, int maxStep)
+    {
+        CheckAttackble(unitPos, maxStep + 1);
     }
 
     //到達できるかのチェック
@@ -48,6 +55,27 @@ public class MoveRange : MonoBehaviour/*, IPointerClickHandler*/
         CheckPassible(pos + Vector3Int.left, remainStep);
         CheckPassible(pos + Vector3Int.right, remainStep);
         CheckPassible(pos + Vector3Int.down, remainStep);
+    }
+
+    void CheckAttackble(Vector3Int pos, int remainStep)
+    {
+        if (_playerBehave.GetSelectionFlag)
+        {
+            _moveRange.SetTile(pos, _attackbleTile);//攻撃可能範囲表示
+            --remainStep;
+            if (remainStep == 0) return;
+        }
+        else
+        {
+            _moveRange.SetTile(pos, null);//攻撃可能範囲削除
+            --remainStep;
+            if (remainStep == 0) return;
+        }
+
+        CheckAttackble(pos + Vector3Int.up, remainStep);
+        CheckAttackble(pos + Vector3Int.left, remainStep);
+        CheckAttackble(pos + Vector3Int.right, remainStep);
+        CheckAttackble(pos + Vector3Int.down, remainStep);
     }
 
     private Vector3Int FloorToPosition(Vector3 position)
