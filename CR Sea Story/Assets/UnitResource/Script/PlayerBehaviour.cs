@@ -3,7 +3,6 @@ using DG.Tweening;
 
 public class PlayerBehaviour : ActorsBehaviour
 {
-
     private Vector3Int _startingPos;   //選択時のユニット座標
     private Vector3Int _mousePos;      //マウスカーソル座標
     private Vector3 _moveVec;          //移動ベクトル
