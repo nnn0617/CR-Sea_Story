@@ -12,7 +12,7 @@ public class FollowCamera : MonoBehaviour
     {
         _playerPos = GameObject.FindGameObjectWithTag("Player").gameObject.transform.position;
         _playerPos.z = transform.position.z;
-        transform.position = Vector3.Lerp(transform.position, _playerPos, 0.5f * _deltaTime);
+        transform.position = Vector3.Lerp(transform.position, _playerPos, 0.03f * _deltaTime);
         _deltaTime += Time.deltaTime;
     }
 }

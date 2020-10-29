@@ -1,18 +1,22 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class EnemyBehaviour : MonoBehaviour
+public class EnemyBehaviour : ActorsBehaviour
 {
     // Start is called before the first frame update
     void Start()
     {
-        
+        _curState = UnitState.Idle;        
+        _moveFlag = false;
+        InitAbility();
     }
 
-    // Update is called once per frame
+    protected override void InitAbility()
+    {
+        _moveRange = 2;
+        _attackRange = 1;
+    }
+
     void Update()
     {
-        
     }
 }

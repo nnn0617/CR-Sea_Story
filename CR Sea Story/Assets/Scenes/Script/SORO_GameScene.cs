@@ -12,7 +12,8 @@ public class SORO_GameScene : MonoBehaviour
 
     void Start()
     {
-        
+        _playerObj = GameObject.Find("Player").gameObject;
+        _playerBehave = _playerObj.GetComponent<PlayerBehaviour>();
     }
 
     void Update()

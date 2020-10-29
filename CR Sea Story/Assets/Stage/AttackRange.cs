@@ -11,7 +11,7 @@ public class AttackRange : MonoBehaviour
 
     void Start()
     {
-        _playerObj = GameObject.Find("Actors").transform.Find("Player").gameObject;
+        _playerObj = GameObject.Find("Player").gameObject;
         _playerBehave = _playerObj.GetComponent<PlayerBehaviour>();
     }
 

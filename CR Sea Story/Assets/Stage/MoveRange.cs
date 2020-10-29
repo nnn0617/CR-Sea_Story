@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class MoveRange : MonoBehaviour/*, IPointerClickHandler*/
+public class MoveRange : MonoBehaviour
 {
     [SerializeField] Tilemap _moveRange;
     [SerializeField] TileBase _passibleTile;
@@ -12,7 +12,7 @@ public class MoveRange : MonoBehaviour/*, IPointerClickHandler*/
 
     void Start()
     {
-        _playerObj = GameObject.Find("Actors").transform.Find("Player").gameObject;
+        _playerObj = GameObject.Find("Player").gameObject;
         _playerBehave = _playerObj.GetComponent<PlayerBehaviour>();
     }
 

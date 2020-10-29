@@ -6,8 +6,7 @@ public class PlayerBehaviour : ActorsBehaviour
     private Vector3Int _startingPos;   //選択時のユニット座標
     private Vector3Int _mousePos;      //マウスカーソル座標
     private Vector3 _moveVec;          //移動ベクトル
-
-    private bool _moveFlag;
+   
     private float _clickTime;
 
     public Vector3Int GetMouseClickPos { get { return _mousePos; } }
@@ -20,10 +19,15 @@ public class PlayerBehaviour : ActorsBehaviour
 
     void Start()
     {
-        _curState = UnitState.Idle;
-        _moveRange = 2;
-        _attackRange = 1;
+        _curState = UnitState.Idle;       
         _moveFlag = false;
+        InitAbility();
+    }
+
+    protected override void InitAbility()
+    {
+        _moveRange = 3;
+        _attackRange = 1;
     }
 
     void Update()
@@ -141,7 +145,7 @@ public class PlayerBehaviour : ActorsBehaviour
     void HorizontalPriorityMove()
     {
         Vector3Int integerPos = RoundToPosition(transform.position);
-        float curClickAfterTime = _clickTime;
+        //float curClickAfterTime = _clickTime;
 
         
         if (integerPos.x != _mousePos.x)
@@ -159,8 +163,8 @@ public class PlayerBehaviour : ActorsBehaviour
             _curState = UnitState.Attack;
         }
 
-        _clickTime += Time.deltaTime;
-        _clickTime = Mathf.Clamp(_clickTime, float.MinValue, 1.0f);
+　　　　//_clickTime ＋＝ Time.deltaTime；
+        //_clickTime = Mathf.Clamp(_clickTime, float.MinValue, 1.0f);
     }
 
     //縦優先移動
