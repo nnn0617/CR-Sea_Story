@@ -16,6 +16,9 @@ public abstract class ActorsBehaviour : MonoBehaviour
     protected int _moveRange;
     protected int _attackRange;
 
+    protected Vector3 _diffPos;       //移動ベクトル
+
+    protected bool _selectFlag;
     protected bool _moveFlag;
 
     public int moveRange { get { return _moveRange; } }
@@ -32,14 +35,38 @@ public abstract class ActorsBehaviour : MonoBehaviour
         this._attackRange = attack;
     }
 
-    // Start is called before the first frame update
     void Start()
     {
     }
 
-    // Update is called once per frame
     void Update()
     {
         
+    }
+
+    //行動範囲チェック(範囲外…true、範囲内…false)
+    protected bool CheckDifference(int actionRange, Vector3Int diffPos, Vector3Int startPos)
+    {
+        //移動距離の計算
+        _diffPos = diffPos - startPos;
+        _diffPos.z = 0f;
+
+        float range = Mathf.Abs(_diffPos.x) + Mathf.Abs(_diffPos.y);
+        if (range > actionRange)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    //float型の小数点以下を四捨五入し、int(整数)型に
+    protected Vector3Int RoundToPosition(Vector3 position)
+    {
+        Vector3Int afterPosition = new Vector3Int(
+            Mathf.RoundToInt(position.x),
+            Mathf.RoundToInt(position.y),
+            Mathf.RoundToInt(position.z));
+
+        return afterPosition;
     }
 }

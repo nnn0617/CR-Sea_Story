@@ -2,7 +2,6 @@
 
 public class EnemyBehaviour : ActorsBehaviour
 {
-    // Start is called before the first frame update
     void Start()
     {
         _curState = UnitState.Idle;        
@@ -16,7 +15,7 @@ public class EnemyBehaviour : ActorsBehaviour
         _attackRange = 1;
     }
 
-    void Update()
+    public void EnemyUpdate()
     {
     }
 }

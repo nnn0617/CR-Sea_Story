@@ -3,13 +3,11 @@ using DG.Tweening;
 
 public class PlayerBehaviour : ActorsBehaviour
 {
-    private Vector3Int _startingPos;   //選択時のユニット座標
-    private Vector3Int _mousePos;      //マウスカーソル座標
-    private Vector3 _moveVec;          //移動ベクトル
+    private Vector3Int _startPos;   //選択時のユニット座標
    
     private float _clickTime;
 
-    public Vector3Int GetMouseClickPos { get { return _mousePos; } }
+    //public Vector3Int GetMouseClickPos { get { return _deffPos; } }
 
     public PlayerBehaviour(int move, int attack):base(move, attack)
     {
@@ -21,6 +19,7 @@ public class PlayerBehaviour : ActorsBehaviour
     {
         _curState = UnitState.Idle;       
         _moveFlag = false;
+        _selectFlag = false;
         InitAbility();
     }
 
@@ -30,13 +29,13 @@ public class PlayerBehaviour : ActorsBehaviour
         _attackRange = 1;
     }
 
-    void Update()
+    public void PlayerUpdate()
     {
         switch (_curState)
         {
             case UnitState.Idle:
                 //クリックして離した瞬間にSelect_Stateに移行
-                if (Input.GetMouseButtonUp(0))
+                if (_selectFlag && Input.GetMouseButtonUp(0))
                 {
                     _curState = UnitState.Select;
                     transform.DOScale(1.3f, 0.5f).SetEase(Ease.OutElastic);
@@ -50,7 +49,10 @@ public class PlayerBehaviour : ActorsBehaviour
                     _clickTime = Time.deltaTime;
 
                     //移動範囲外の場合
-                    if (DifferenceCheck(_moveRange)) break;
+                    if (CheckDifference(
+                        _moveRange,
+                        RoundToPosition(Camera.main.ScreenToWorldPoint(Input.mousePosition)),
+                        RoundToPosition(transform.position))) break;
 
                     _moveFlag = true;
                     _curState = UnitState.Move;
@@ -63,16 +65,17 @@ public class PlayerBehaviour : ActorsBehaviour
                 break;
 
             case UnitState.Attack:
-                if (!_moveFlag)
+                if (Input.GetMouseButtonDown(0))
                 {
-                    if (Input.GetMouseButtonDown(0))
-                    {
-                        //攻撃範囲外の場合
-                        if (DifferenceCheck(_attackRange)) break;
+                    //攻撃範囲外の場合
+                    if (CheckDifference(
+                        _attackRange,
+                        RoundToPosition(Camera.main.ScreenToWorldPoint(Input.mousePosition)),
+                        RoundToPosition(transform.position))) break;
 
-                        Debug.Log("攻撃");
-                        _curState = UnitState.Idle;
-                    }
+                    Debug.Log("攻撃");
+                    _curState = UnitState.Idle;
+                    _selectFlag = false;
                 }
                 break;
         }
@@ -81,6 +84,7 @@ public class PlayerBehaviour : ActorsBehaviour
         if (Input.GetMouseButtonDown(1))
         {
             _moveFlag = true;
+            _selectFlag = false;
             transform.DOScale(1.0f, 0.5f).SetEase(Ease.OutElastic);
             _curState = UnitState.Idle;
         }       
@@ -99,39 +103,43 @@ public class PlayerBehaviour : ActorsBehaviour
 
     private void OnMouseDown()
     {
+        if(_curState == UnitState.Idle)
+        {
+            _selectFlag = true;
+        }
         if (_curState == UnitState.Attack)
         {
              _moveFlag = false;
         }
     }
 
-    bool DifferenceCheck(int actionRange)
-    {
-        //マウスカーソルの座標取得
-        _mousePos = RoundToPosition(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-        _mousePos.z = 0;
+    //private bool DifferenceCheck(int actionRange)
+    //{
+    //    //マウスカーソルの座標取得
+    //    _deffPos = RoundToPosition(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+    //    _deffPos.z = 0;
 
-        //移動距離の計算
-        _startingPos = RoundToPosition(transform.position);
-        _moveVec = _mousePos - _startingPos;
+    //    //移動距離の計算
+    //    _startPos = RoundToPosition(transform.position);
+    //    _moveVec = _deffPos - _startPos;
 
-        float range = Mathf.Abs(_moveVec.x) + Mathf.Abs(_moveVec.y);
-        if (range > actionRange)
-        {
-            return true;
-        }
-        return false;
-    }
+    //    float range = Mathf.Abs(_moveVec.x) + Mathf.Abs(_moveVec.y);
+    //    if (range > actionRange)
+    //    {
+    //        return true;
+    //    }
+    //    return false;
+    //}
 
     //ユニットの移動
     void MoveToDestination()
     {
-        if (Mathf.Abs(_moveVec.x) > Mathf.Abs(_moveVec.y))
+        if (Mathf.Abs(_diffPos.x) > Mathf.Abs(_diffPos.y))
         {
             HorizontalPriorityMove();
         }
 
-        else if (Mathf.Abs(_moveVec.y) > Mathf.Abs(_moveVec.x))
+        else if (Mathf.Abs(_diffPos.y) > Mathf.Abs(_diffPos.x))
         {
             VerticalPriorityMove();
         }
@@ -146,16 +154,15 @@ public class PlayerBehaviour : ActorsBehaviour
     {
         Vector3Int integerPos = RoundToPosition(transform.position);
         //float curClickAfterTime = _clickTime;
-
         
-        if (integerPos.x != _mousePos.x)
+        if (integerPos.x != _diffPos.x)
         {
-            transform.position += new Vector3(1.0f * (_moveVec.x / Mathf.Abs(_moveVec.x)), 0.0f, 0.0f);//横移動
+            transform.position += new Vector3(1.0f * (_diffPos.x / Mathf.Abs(_diffPos.x)), 0.0f, 0.0f);//横移動
             //transform.position = Vector3.Lerp(_startingPos, _mousePos, Mathf.Abs(_moveVec.x) * curClickAfterTime);
         }
-        else if(integerPos.y != _mousePos.y)
+        else if(integerPos.y != _diffPos.y)
         {
-            transform.position += new Vector3(0.0f, 1.0f * (_moveVec.y / Mathf.Abs(_moveVec.y)), 0.0f);//縦移動
+            transform.position += new Vector3(0.0f, 1.0f * (_diffPos.y / Mathf.Abs(_diffPos.y)), 0.0f);//縦移動
             //transform.position = Vector3.Lerp(_startingPos, _mousePos, Mathf.Abs(_moveVec.x) * curClickAfterTime);
         }
         else
@@ -172,28 +179,17 @@ public class PlayerBehaviour : ActorsBehaviour
     {
         Vector3Int integerPos = RoundToPosition(transform.position);
 
-        if (integerPos.y != _mousePos.y)
+        if (integerPos.y != _diffPos.y)
         {
-            transform.position += new Vector3(0.0f, 1.0f * (_moveVec.y / Mathf.Abs(_moveVec.y)), 0.0f);//縦移動
+            transform.position += new Vector3(0.0f, 1.0f * (_diffPos.y / Mathf.Abs(_diffPos.y)), 0.0f);//縦移動
         }
-        else if (integerPos.x != _mousePos.x)
+        else if (integerPos.x != _diffPos.x)
         {
-            transform.position += new Vector3(1.0f * (_moveVec.x / Mathf.Abs(_moveVec.x)), 0.0f, 0.0f);//横移動
+            transform.position += new Vector3(1.0f * (_diffPos.x / Mathf.Abs(_diffPos.x)), 0.0f, 0.0f);//横移動
         }
         else
         {
             _curState = UnitState.Attack;
         }
-    }
-
-    //小数点以下を四捨五入し、整数型に
-    private Vector3Int RoundToPosition(Vector3 position)
-    {
-        Vector3Int afterPosition = new Vector3Int(
-            Mathf.RoundToInt(position.x),
-            Mathf.RoundToInt(position.y),
-            Mathf.RoundToInt(position.z));
-
-        return afterPosition;
     }
 }

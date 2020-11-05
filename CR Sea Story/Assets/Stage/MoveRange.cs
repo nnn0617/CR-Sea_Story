@@ -12,7 +12,7 @@ public class MoveRange : MonoBehaviour
 
     void Start()
     {
-        _playerObj = GameObject.Find("Player").gameObject;
+        _playerObj = GameObject.FindGameObjectWithTag("Player").gameObject;
         _playerBehave = _playerObj.GetComponent<PlayerBehaviour>();
     }
 
