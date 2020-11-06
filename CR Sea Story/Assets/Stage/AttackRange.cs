@@ -38,7 +38,7 @@ public class AttackRange : MonoBehaviour
         }
         else
         {
-            _attackRange.SetTile(pos, null);//攻撃可能範囲削除
+            _attackRange.SetTile(pos, null);//攻撃可能範囲非表示
             --remainStep;
             if (remainStep == 0) return;
         }

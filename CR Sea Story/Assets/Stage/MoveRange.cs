@@ -29,6 +29,7 @@ public class MoveRange : MonoBehaviour
         CheckPassible(unitPos, maxStep + 1);
     }
 
+    //攻撃可能なマスの可視化
     void ShowAttackbleTile(Vector3Int unitPos, int maxStep)
     {
         CheckAttackble(unitPos, maxStep + 1);
@@ -67,11 +68,12 @@ public class MoveRange : MonoBehaviour
         }
         else
         {
-            _moveRange.SetTile(pos, null);//攻撃可能範囲削除
+            _moveRange.SetTile(pos, null);//攻撃可能範囲非表示
             --remainStep;
             if (remainStep == 0) return;
         }
 
+        //再帰してremainStep分チェック&表示or非表示
         CheckAttackble(pos + Vector3Int.up, remainStep);
         CheckAttackble(pos + Vector3Int.left, remainStep);
         CheckAttackble(pos + Vector3Int.right, remainStep);

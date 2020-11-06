@@ -4,7 +4,6 @@ using DG.Tweening;
 public class PlayerBehaviour : ActorsBehaviour
 {
     private Vector3Int _startPos;   //選択時のユニット座標
-   
     private float _clickTime;
 
     public PlayerBehaviour(int move, int attack):base(move, attack)

@@ -11,7 +11,7 @@ public class EnemyBehaviour : ActorsBehaviour
 
     protected override void InitAbility()
     {
-        _moveRange = 2;
+        _moveRange = 3;
         _attackRange = 1;
     }
 
