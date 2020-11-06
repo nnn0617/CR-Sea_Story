@@ -7,8 +7,6 @@ public class PlayerBehaviour : ActorsBehaviour
    
     private float _clickTime;
 
-    //public Vector3Int GetMouseClickPos { get { return _deffPos; } }
-
     public PlayerBehaviour(int move, int attack):base(move, attack)
     {
         this._moveRange = move;
@@ -49,10 +47,7 @@ public class PlayerBehaviour : ActorsBehaviour
                     _clickTime = Time.deltaTime;
 
                     //移動範囲外の場合
-                    if (CheckDifference(
-                        _moveRange,
-                        RoundToPosition(Camera.main.ScreenToWorldPoint(Input.mousePosition)),
-                        RoundToPosition(transform.position))) break;
+                    if (CheckDifference(_moveRange)) break;
 
                     _moveFlag = true;
                     _curState = UnitState.Move;
@@ -68,10 +63,7 @@ public class PlayerBehaviour : ActorsBehaviour
                 if (Input.GetMouseButtonDown(0))
                 {
                     //攻撃範囲外の場合
-                    if (CheckDifference(
-                        _attackRange,
-                        RoundToPosition(Camera.main.ScreenToWorldPoint(Input.mousePosition)),
-                        RoundToPosition(transform.position))) break;
+                    if (CheckDifference(_attackRange)) break;
 
                     Debug.Log("攻撃");
                     _curState = UnitState.Idle;
@@ -113,23 +105,24 @@ public class PlayerBehaviour : ActorsBehaviour
         }
     }
 
-    //private bool DifferenceCheck(int actionRange)
-    //{
-    //    //マウスカーソルの座標取得
-    //    _deffPos = RoundToPosition(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-    //    _deffPos.z = 0;
+    //行動範囲チェック(範囲外…true、範囲内…false)
+    private bool CheckDifference(int actionRange)
+    {
+        //マウスカーソルの座標取得
+        _diffPos = RoundToPosition(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+        _diffPos.z = 0;
 
-    //    //移動距離の計算
-    //    _startPos = RoundToPosition(transform.position);
-    //    _moveVec = _deffPos - _startPos;
+        //移動距離の計算
+        _startPos = RoundToPosition(transform.position);
+        _actionVec = _diffPos - _startPos;
 
-    //    float range = Mathf.Abs(_moveVec.x) + Mathf.Abs(_moveVec.y);
-    //    if (range > actionRange)
-    //    {
-    //        return true;
-    //    }
-    //    return false;
-    //}
+        float range = Mathf.Abs(_actionVec.x) + Mathf.Abs(_actionVec.y);
+        if (range > actionRange)
+        {
+            return true;
+        }
+        return false;
+    }
 
     //ユニットの移動
     void MoveToDestination()
