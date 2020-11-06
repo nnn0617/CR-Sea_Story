@@ -628,8 +628,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 58d5729bcf8097e4c88195a8aecb06a2, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -891,8 +891,8 @@ GameObject:
   - component: {fileID: 1468899511}
   - component: {fileID: 1468899515}
   - component: {fileID: 1468899514}
-  - component: {fileID: 1468899513}
   - component: {fileID: 1468899516}
+  - component: {fileID: 1468899513}
   - component: {fileID: 1468899512}
   - component: {fileID: 1468899517}
   m_Layer: 5
@@ -983,8 +983,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 58d5729bcf8097e4c88195a8aecb06a2, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -1022,7 +1022,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1468899510}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eca8b2325a3910b49a8d4e158d9e964b, type: 3}
+  m_Script: {fileID: 11500000, guid: a036891700f72b54db68cffdd92f9e23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &1468899517
@@ -1139,8 +1139,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 58d5729bcf8097e4c88195a8aecb06a2, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
