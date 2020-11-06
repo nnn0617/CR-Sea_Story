@@ -16,7 +16,8 @@ public abstract class ActorsBehaviour : MonoBehaviour
     protected int _moveRange;
     protected int _attackRange;
 
-    protected Vector3 _diffPos;       //移動ベクトル
+    protected Vector3 _diffPos;
+    protected Vector3 _actionVec;        //行動範囲ベクトル
 
     protected bool _selectFlag;
     protected bool _moveFlag;
@@ -45,7 +46,7 @@ public abstract class ActorsBehaviour : MonoBehaviour
     }
 
     //行動範囲チェック(範囲外…true、範囲内…false)
-    protected bool CheckDifference(int actionRange, Vector3Int diffPos, Vector3Int startPos)
+    protected virtual bool CheckDifference(int actionRange, Vector3Int diffPos, Vector3Int startPos)
     {
         //移動距離の計算
         _diffPos = diffPos - startPos;
