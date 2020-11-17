@@ -5,7 +5,8 @@ public class EnemyBehaviour : ActorsBehaviour
     void Start()
     {
         _curState = UnitState.Idle;        
-        _moveFlag = false;
+        _isMoving = false;
+        _isMyTurn = false;
         InitAbility();
     }
 
@@ -15,7 +16,7 @@ public class EnemyBehaviour : ActorsBehaviour
         _attackRange = 1;
     }
 
-    public void EnemyUpdate()
+    public override void UnitUpdate()
     {
     }
 }

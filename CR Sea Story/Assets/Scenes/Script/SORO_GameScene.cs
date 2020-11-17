@@ -19,7 +19,13 @@ public class SORO_GameScene : MonoBehaviour
 
     void Update()
     {
-        _playerBehave.PlayerUpdate();
-        _enemyBehave.EnemyUpdate();
+        if (_playerBehave.SharedIsMyTurn)
+        {
+            _playerBehave.UnitUpdate();
+        }
+        if (_enemyBehave.SharedIsMyTurn)
+        {
+            _enemyBehave.UnitUpdate();
+        }
     }
 }

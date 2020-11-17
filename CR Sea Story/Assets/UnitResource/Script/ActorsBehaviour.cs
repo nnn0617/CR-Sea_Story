@@ -5,28 +5,36 @@ public abstract class ActorsBehaviour : MonoBehaviour
     //ユニットの状態
     protected enum UnitState
     {
-        Idle,   //待機状態
-        Select, //選択状態
-        Move,   //移動状態
-        Attack  //攻撃状態
+        Idle,       //待機状態
+        Select,     //選択状態
+        Move,       //移動状態
+        Attack,     //攻撃状態
+        Intercept   //迎撃状態(相手のターン)
     }
 
-    protected UnitState _curState;    //ユニットの現在の状態
+    protected UnitState _curState;//ユニットの現在の状態
 
-    protected int _moveRange;
-    protected int _attackRange;
+    protected Vector3 _diffPos;//移動先の座標
+    protected Vector3 _actionVec;//行動範囲ベクトル
 
-    protected Vector3 _diffPos;
-    protected Vector3 _actionVec;        //行動範囲ベクトル
+    protected int _moveRange;//移動範囲
+    protected int _attackRange;//攻撃範囲
 
-    protected bool _selectFlag;
-    protected bool _moveFlag;
+    protected bool _isMyTurn;//ターン
+    protected bool _isSelecting;//選択
+    protected bool _isMoving;//移動
 
+    //行動範囲取得用
     public int moveRange { get { return _moveRange; } }
     public int attackRange { get { return _attackRange; } }
 
+    //自分のターンかどうかのフラグ取得、代入用
+    public bool SharedIsMyTurn { get { return _isMyTurn; } set { _isMyTurn = value; } }
+
     public bool GetSelectionFlag { get { return _curState == UnitState.Select; } }
     public bool GetAttackFlag { get { return _curState == UnitState.Attack; } }
+
+    public int GetUnitState { get { return (int)_curState; } set { _curState = (UnitState)value; } }
 
     protected abstract void InitAbility();//パラメータ初期化
 
@@ -36,13 +44,14 @@ public abstract class ActorsBehaviour : MonoBehaviour
         this._attackRange = attack;
     }
 
+    abstract public void UnitUpdate();//継承元更新処理
+
     void Start()
     {
     }
 
     void Update()
-    {
-        
+    {        
     }
 
     //行動範囲チェック(範囲外…true、範囲内…false)

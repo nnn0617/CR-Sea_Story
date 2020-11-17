@@ -15,8 +15,9 @@ public class PlayerBehaviour : ActorsBehaviour
     void Start()
     {
         _curState = UnitState.Idle;       
-        _moveFlag = false;
-        _selectFlag = false;
+        _isMoving = false;
+        _isSelecting = false;
+        _isMyTurn = false;
         InitAbility();
     }
 
@@ -26,13 +27,13 @@ public class PlayerBehaviour : ActorsBehaviour
         _attackRange = 1;
     }
 
-    public void PlayerUpdate()
+    public override void UnitUpdate()
     {
         switch (_curState)
         {
             case UnitState.Idle:
                 //クリックして離した瞬間にSelect_Stateに移行
-                if (_selectFlag && Input.GetMouseButtonUp(0))
+                if (_isSelecting && Input.GetMouseButtonUp(0))
                 {
                     _curState = UnitState.Select;
                     transform.DOScale(1.3f, 0.5f).SetEase(Ease.OutElastic);
@@ -48,7 +49,7 @@ public class PlayerBehaviour : ActorsBehaviour
                     //移動範囲外の場合
                     if (CheckDifference(_moveRange)) break;
 
-                    _moveFlag = true;
+                    _isMoving = true;
                     _curState = UnitState.Move;
                 }
                 break;
@@ -65,17 +66,21 @@ public class PlayerBehaviour : ActorsBehaviour
                     if (CheckDifference(_attackRange)) break;
 
                     Debug.Log("攻撃");
-                    _curState = UnitState.Idle;
-                    _selectFlag = false;
+                    _curState = UnitState.Intercept;
+                    _isMyTurn = false;
+                    _isSelecting = false;
                 }
+                break;
+
+            case UnitState.Intercept:
+                
                 break;
         }
 
         //右クリックで選択キャンセル
         if (Input.GetMouseButtonDown(1))
         {
-            _moveFlag = true;
-            _selectFlag = false;
+            _isSelecting = false;
             transform.DOScale(1.0f, 0.5f).SetEase(Ease.OutElastic);
             _curState = UnitState.Idle;
         }       
@@ -87,7 +92,7 @@ public class PlayerBehaviour : ActorsBehaviour
         //選択状態でその場をクリックした場合はMove_Stateに移行しない
         if (_curState == UnitState.Select)
         {
-            _moveFlag = false;
+            _isMoving = false;
             _curState = UnitState.Select;
         }
     }
@@ -96,11 +101,11 @@ public class PlayerBehaviour : ActorsBehaviour
     {
         if(_curState == UnitState.Idle)
         {
-            _selectFlag = true;
+            _isSelecting = true;
         }
         if (_curState == UnitState.Attack)
         {
-             _moveFlag = false;
+             _isMoving = false;
         }
     }
 
@@ -130,7 +135,6 @@ public class PlayerBehaviour : ActorsBehaviour
         {
             HorizontalPriorityMove();
         }
-
         else if (Mathf.Abs(_diffPos.y) > Mathf.Abs(_diffPos.x))
         {
             VerticalPriorityMove();
@@ -158,7 +162,8 @@ public class PlayerBehaviour : ActorsBehaviour
             //transform.position = Vector3.Lerp(_startingPos, _mousePos, Mathf.Abs(_moveVec.x) * curClickAfterTime);
         }
         else
-        {          
+        {
+            _actionVec = new Vector3(0, 0, 0);
             _curState = UnitState.Attack;
         }
 
@@ -181,6 +186,7 @@ public class PlayerBehaviour : ActorsBehaviour
         }
         else
         {
+            _actionVec = new Vector3(0, 0, 0);
             _curState = UnitState.Attack;
         }
     }

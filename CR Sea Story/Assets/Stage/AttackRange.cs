@@ -50,6 +50,7 @@ public class AttackRange : MonoBehaviour
         CheckAtackble(pos + Vector3Int.down, remainStep);
     }
 
+    //float型の小数点以下を切り捨て、int(整数)型に
     private Vector3Int FloorToPosition(Vector3 position)
     {
         Vector3Int afterPosition = new Vector3Int(
