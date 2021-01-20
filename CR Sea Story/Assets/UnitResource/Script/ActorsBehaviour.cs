@@ -3,7 +3,7 @@
 public abstract class ActorsBehaviour : MonoBehaviour
 {
     //ユニットの状態
-    protected enum UnitState
+    public enum UnitState
     {
         Idle,       //待機状態
         Select,     //選択状態
@@ -12,10 +12,21 @@ public abstract class ActorsBehaviour : MonoBehaviour
         Intercept   //迎撃状態(相手のターン)
     }
 
+    //ユニットのタイプ
+    public enum UnitType
+    {
+        Player, //プレイヤー
+        Enemy   //敵
+    }
+
     protected UnitState _curState;//ユニットの現在の状態
+    protected UnitType _type;
 
     protected Vector3 _diffPos;//移動先の座標
     protected Vector3 _actionVec;//行動範囲ベクトル
+    protected Vector3 _moveX = new Vector3(1.0f, 0f, 0f);
+    protected Vector3 _moveY = new Vector3(0f, 1.0f, 0f);
+    protected float _speed;
 
     protected int _moveRange;//移動範囲
     protected int _attackRange;//攻撃範囲
@@ -33,10 +44,11 @@ public abstract class ActorsBehaviour : MonoBehaviour
 
     public bool GetSelectionFlag { get { return _curState == UnitState.Select; } }
     public bool GetAttackFlag { get { return _curState == UnitState.Attack; } }
-
     public int GetUnitState { get { return (int)_curState; } set { _curState = (UnitState)value; } }
+    public int GetUnitType { get { return (int)_type; } }
 
     protected abstract void InitAbility();//パラメータ初期化
+    public abstract bool CheckType(UnitType type);//ユニットのタイプ確認
 
     public ActorsBehaviour(int move = 2, int attack = 1)
     {
@@ -44,7 +56,7 @@ public abstract class ActorsBehaviour : MonoBehaviour
         this._attackRange = attack;
     }
 
-    abstract public void UnitUpdate();//継承元更新処理
+    abstract public void UnitUpdate();//継承元の更新処理
 
     void Start()
     {

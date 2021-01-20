@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
 public class SORO_GameScene : MonoBehaviour
 {
@@ -8,24 +9,38 @@ public class SORO_GameScene : MonoBehaviour
     private GameObject _enemyObj;
     private EnemyBehaviour _enemyBehave;
 
+    private List<ActorsBehaviour> _actors;
+    private ActorsBehaviour _activeActor;
+
     void Start()
     {
+        _actors = new List<ActorsBehaviour>();
+
         _playerObj = GameObject.FindGameObjectWithTag("Player").gameObject;
         _playerBehave = _playerObj.GetComponent<PlayerBehaviour>();
+        _actors.Add(_playerBehave);
 
         _enemyObj = GameObject.FindGameObjectWithTag("Enemy").gameObject;
         _enemyBehave = _enemyObj.GetComponent<EnemyBehaviour>();
+        _actors.Add(_enemyBehave);
     }
 
     void Update()
     {
-        if (_playerBehave.SharedIsMyTurn)
+        foreach (var actor in _actors)
         {
-            _playerBehave.UnitUpdate();
+            if(actor.GetUnitState == (int)ActorsBehaviour.UnitState.Intercept)
+            {
+                break;
+            }
+            actor.UnitUpdate();
         }
-        if (_enemyBehave.SharedIsMyTurn)
-        {
-            _enemyBehave.UnitUpdate();
-        }
+        ChangingPhased();
+    }
+
+    private void ChangingPhased()
+    {
+
+        _activeActor = _playerBehave;
     }
 }

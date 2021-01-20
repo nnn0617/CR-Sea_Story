@@ -14,17 +14,24 @@ public class PlayerBehaviour : ActorsBehaviour
 
     void Start()
     {
-        _curState = UnitState.Idle;       
-        _isMoving = false;
-        _isSelecting = false;
-        _isMyTurn = false;
+        _curState = UnitState.Idle;
+        _type = UnitType.Player;
         InitAbility();
     }
 
     protected override void InitAbility()
     {
+        _isMoving = false;
+        _isSelecting = false;
+        _isMyTurn = false;
         _moveRange = 3;
         _attackRange = 1;
+        _speed = 8;
+    }
+
+    public override bool CheckType(UnitType type)
+    {
+        return _type == type;
     }
 
     public override void UnitUpdate()
@@ -55,11 +62,11 @@ public class PlayerBehaviour : ActorsBehaviour
                 break;
 
             case UnitState.Move:
-                transform.DOScale(1.0f, 0.5f).SetEase(Ease.OutElastic);                
                 MoveToDestination();//ユニットの移動
                 break;
 
             case UnitState.Attack:
+                transform.DOScale(1.0f, 0.5f).SetEase(Ease.OutElastic);                
                 if (Input.GetMouseButtonDown(0))
                 {
                     //攻撃範囲外の場合
@@ -148,41 +155,35 @@ public class PlayerBehaviour : ActorsBehaviour
     //横優先移動
     void HorizontalPriorityMove()
     {
-        Vector3Int integerPos = RoundToPosition(transform.position);
-        //float curClickAfterTime = _clickTime;
-        
-        if (integerPos.x != _diffPos.x)
+        if (transform.position.x != _diffPos.x)
         {
-            transform.position += new Vector3(1.0f * (_diffPos.x / Mathf.Abs(_diffPos.x)), 0.0f, 0.0f);//横移動
-            //transform.position = Vector3.Lerp(_startingPos, _mousePos, Mathf.Abs(_moveVec.x) * curClickAfterTime);
+            Vector3 tmpDiffPos = new Vector3(_diffPos.x, transform.position.y, 0.0f);
+            transform.position = Vector3.MoveTowards(transform.position, tmpDiffPos, Time.deltaTime * _speed);//横移動
         }
-        else if(integerPos.y != _diffPos.y)
+        else if (transform.position.y != _diffPos.y)
         {
-            transform.position += new Vector3(0.0f, 1.0f * (_diffPos.y / Mathf.Abs(_diffPos.y)), 0.0f);//縦移動
-            //transform.position = Vector3.Lerp(_startingPos, _mousePos, Mathf.Abs(_moveVec.x) * curClickAfterTime);
+            Vector3 tmpDiffPos = new Vector3(transform.position.x, _diffPos.y, 0.0f);
+            transform.position = Vector3.MoveTowards(transform.position, tmpDiffPos, Time.deltaTime * _speed);//縦移動
         }
         else
         {
             _actionVec = new Vector3(0, 0, 0);
             _curState = UnitState.Attack;
         }
-
-　　　　//_clickTime ＋＝ Time.deltaTime；
-        //_clickTime = Mathf.Clamp(_clickTime, float.MinValue, 1.0f);
     }
 
     //縦優先移動
     void VerticalPriorityMove()
     {
-        Vector3Int integerPos = RoundToPosition(transform.position);
-
-        if (integerPos.y != _diffPos.y)
+        if (transform.position.y != _diffPos.y)
         {
-            transform.position += new Vector3(0.0f, 1.0f * (_diffPos.y / Mathf.Abs(_diffPos.y)), 0.0f);//縦移動
+            Vector3 tmpDiffPos = new Vector3(transform.position.x, _diffPos.y, 0.0f);
+            transform.position = Vector3.MoveTowards(transform.position, tmpDiffPos, Time.deltaTime * _speed);//縦移動
         }
-        else if (integerPos.x != _diffPos.x)
+        else if (transform.position.x != _diffPos.x)
         {
-            transform.position += new Vector3(1.0f * (_diffPos.x / Mathf.Abs(_diffPos.x)), 0.0f, 0.0f);//横移動
+            Vector3 tmpDiffPos = new Vector3(_diffPos.x, transform.position.y, 0.0f);
+            transform.position = Vector3.MoveTowards(transform.position, tmpDiffPos, Time.deltaTime * _speed);//横移動
         }
         else
         {
