@@ -6,6 +6,8 @@ public class PlayerBehaviour : ActorsBehaviour
     private Vector3Int _startPos;   //選択時のユニット座標
     private float _clickTime;
 
+    private Animator _animator;
+
     public PlayerBehaviour(int move, int attack):base(move, attack)
     {
         this._moveRange = move;
@@ -16,6 +18,7 @@ public class PlayerBehaviour : ActorsBehaviour
     {
         _curState = UnitState.Idle;
         _type = UnitType.Player;
+        _animator = GetComponent<Animator>();
         InitAbility();
     }
 
@@ -43,6 +46,7 @@ public class PlayerBehaviour : ActorsBehaviour
                 if (_isSelecting && Input.GetMouseButtonUp(0))
                 {
                     _curState = UnitState.Select;
+                    _animator.SetBool("run", true);
                     transform.DOScale(1.3f, 0.5f).SetEase(Ease.OutElastic);
                 }               
                 break;
@@ -66,7 +70,7 @@ public class PlayerBehaviour : ActorsBehaviour
                 break;
 
             case UnitState.Attack:
-                transform.DOScale(1.0f, 0.5f).SetEase(Ease.OutElastic);                
+                transform.DOScale(1.0f, 0.5f).SetEase(Ease.OutElastic);
                 if (Input.GetMouseButtonDown(0))
                 {
                     //攻撃範囲外の場合
@@ -168,6 +172,7 @@ public class PlayerBehaviour : ActorsBehaviour
         else
         {
             _actionVec = new Vector3(0, 0, 0);
+            _animator.SetBool("run", false);
             _curState = UnitState.Attack;
         }
     }
@@ -188,6 +193,7 @@ public class PlayerBehaviour : ActorsBehaviour
         else
         {
             _actionVec = new Vector3(0, 0, 0);
+            _animator.SetBool("run", false);
             _curState = UnitState.Attack;
         }
     }
