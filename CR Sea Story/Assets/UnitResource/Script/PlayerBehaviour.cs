@@ -3,9 +3,7 @@ using DG.Tweening;
 
 public class PlayerBehaviour : ActorsBehaviour
 {
-    private Vector3Int _startPos;   //選択時のユニット座標
-    private float _clickTime;
-
+    private Vector3Int _startPos;//選択時のユニット座標
     private Animator _animator;
 
     public PlayerBehaviour(int move, int attack):base(move, attack)
@@ -26,7 +24,7 @@ public class PlayerBehaviour : ActorsBehaviour
     {
         _isMoving = false;
         _isSelecting = false;
-        _isMyTurn = false;
+        _isLeft = false;
         _moveRange = 3;
         _attackRange = 1;
         _speed = 8;
@@ -42,6 +40,7 @@ public class PlayerBehaviour : ActorsBehaviour
         switch (_curState)
         {
             case UnitState.Idle:
+                transform.position = _startPos;
                 //クリックして離した瞬間にSelect_Stateに移行
                 if (_isSelecting && Input.GetMouseButtonUp(0))
                 {
@@ -54,13 +53,15 @@ public class PlayerBehaviour : ActorsBehaviour
             case UnitState.Select:
                 if (Input.GetMouseButtonDown(0))
                 {
-                    //クリックタイム取得
-                    _clickTime = Time.deltaTime;
-
                     //移動範囲外の場合
                     if (CheckDifference(_moveRange)) break;
 
                     _isMoving = true;
+                    _isLeft = (_actionVec.x < 0);
+                    if (_isLeft)
+                    {
+                        transform.localScale = new Vector3(-1, 1, 1);
+                    }
                     _curState = UnitState.Move;
                 }
                 break;
@@ -73,18 +74,19 @@ public class PlayerBehaviour : ActorsBehaviour
                 transform.DOScale(1.0f, 0.5f).SetEase(Ease.OutElastic);
                 if (Input.GetMouseButtonDown(0))
                 {
+                    _animator.SetBool("attack", true);
                     //攻撃範囲外の場合
                     if (CheckDifference(_attackRange)) break;
 
                     Debug.Log("攻撃");
                     _curState = UnitState.Intercept;
-                    _isMyTurn = false;
                     _isSelecting = false;
                 }
                 break;
 
             case UnitState.Intercept:
-                
+                _animator.SetBool("attack", false);
+                //_isLeft = false;
                 break;
         }
 
@@ -92,8 +94,11 @@ public class PlayerBehaviour : ActorsBehaviour
         if (Input.GetMouseButtonDown(1))
         {
             _isSelecting = false;
-            transform.DOScale(1.0f, 0.5f).SetEase(Ease.OutElastic);
+            _actionVec = new Vector3(0, 0, 0);
+            _animator.SetBool("run", false);
             _curState = UnitState.Idle;
+
+            transform.DOScale(1.0f, 0.5f).SetEase(Ease.OutElastic);
         }       
     }
 

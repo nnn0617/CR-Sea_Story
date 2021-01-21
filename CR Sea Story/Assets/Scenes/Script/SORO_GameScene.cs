@@ -29,10 +29,10 @@ public class SORO_GameScene : MonoBehaviour
     {
         foreach (var actor in _actors)
         {
-            if(actor.GetUnitState == (int)ActorsBehaviour.UnitState.Intercept)
-            {
-                break;
-            }
+            //if(actor.GetUnitState == (int)ActorsBehaviour.UnitState.Intercept)
+            //{
+            //    break;
+            //}
             actor.UnitUpdate();
         }
         ChangingPhased();

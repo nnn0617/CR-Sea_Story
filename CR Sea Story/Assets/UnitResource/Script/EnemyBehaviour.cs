@@ -7,7 +7,6 @@ public class EnemyBehaviour : ActorsBehaviour
         _curState = UnitState.Idle;
         _type = UnitType.Enemy;
         _isMoving = false;
-        _isMyTurn = false;
         InitAbility();
     }
 

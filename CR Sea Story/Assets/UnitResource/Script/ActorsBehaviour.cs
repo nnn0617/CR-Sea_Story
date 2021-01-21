@@ -31,16 +31,13 @@ public abstract class ActorsBehaviour : MonoBehaviour
     protected int _moveRange;//移動範囲
     protected int _attackRange;//攻撃範囲
 
-    protected bool _isMyTurn;//ターン
     protected bool _isSelecting;//選択
     protected bool _isMoving;//移動
+    protected bool _isLeft;//
 
     //行動範囲取得用
     public int moveRange { get { return _moveRange; } }
     public int attackRange { get { return _attackRange; } }
-
-    //自分のターンかどうかのフラグ取得、代入用
-    public bool SharedIsMyTurn { get { return _isMyTurn; } set { _isMyTurn = value; } }
 
     public bool GetSelectionFlag { get { return _curState == UnitState.Select; } }
     public bool GetAttackFlag { get { return _curState == UnitState.Attack; } }
