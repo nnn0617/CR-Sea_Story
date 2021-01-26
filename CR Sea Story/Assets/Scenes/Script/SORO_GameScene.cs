@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using ActorsState;
 
 public class SORO_GameScene : MonoBehaviour
 {
     private GameObject _playerObj;
     private PlayerBehaviour _playerBehave;
-
     private GameObject _enemyObj;
     private EnemyBehaviour _enemyBehave;
 
@@ -29,7 +29,7 @@ public class SORO_GameScene : MonoBehaviour
     {
         foreach (var actor in _actors)
         {
-            //if(actor.GetUnitState == (int)ActorsBehaviour.UnitState.Intercept)
+            //if (actor._stateProcessor.State == state)
             //{
             //    break;
             //}

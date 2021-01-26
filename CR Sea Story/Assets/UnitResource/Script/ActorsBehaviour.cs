@@ -1,16 +1,18 @@
 ﻿using UnityEngine;
+using System;
+using System.Collections;
+using ActorsState;
 
 public abstract class ActorsBehaviour : MonoBehaviour
 {
-    //ユニットの状態
-    public enum UnitState
-    {
-        Idle,       //待機状態
-        Select,     //選択状態
-        Move,       //移動状態
-        Attack,     //攻撃状態
-        Intercept   //迎撃状態(相手のターン)
-    }
+    protected string _beforeStateName;
+    public StateProcessor _stateProcessor;//状態管理
+
+    public StateIdle StateIdle;           //待機状態
+    public StateSelect StateSelect;       //選択状態
+    public StateMove StateMove;           //移動状態
+    public StateAttack StateAttack;       //攻撃状態
+    public StateIntercept StateIntercept; //傍受状態
 
     //ユニットのタイプ
     public enum UnitType
@@ -19,7 +21,6 @@ public abstract class ActorsBehaviour : MonoBehaviour
         Enemy   //敵
     }
 
-    protected UnitState _curState;//ユニットの現在の状態
     protected UnitType _type;
 
     protected Vector3 _diffPos;//移動先の座標
@@ -33,15 +34,16 @@ public abstract class ActorsBehaviour : MonoBehaviour
 
     protected bool _isSelecting;//選択
     protected bool _isMoving;//移動
-    protected bool _isLeft;//
+
+    protected Animator _animator;//アニメーション管理
+    protected float _isRight;//画像横反転用(右向きかどうか)
 
     //行動範囲取得用
     public int moveRange { get { return _moveRange; } }
     public int attackRange { get { return _attackRange; } }
 
-    public bool GetSelectionFlag { get { return _curState == UnitState.Select; } }
-    public bool GetAttackFlag { get { return _curState == UnitState.Attack; } }
-    public int GetUnitState { get { return (int)_curState; } set { _curState = (UnitState)value; } }
+    public bool GetSelectionFlag { get { return _stateProcessor.State == StateSelect; } }
+    public bool GetAttackFlag { get { return _stateProcessor.State == StateAttack; } }
     public int GetUnitType { get { return (int)_type; } }
 
     protected abstract void InitAbility();//パラメータ初期化
