@@ -47,7 +47,6 @@ public abstract class ActorsBehaviour : MonoBehaviour
     public int GetUnitType { get { return (int)_type; } }
 
     protected abstract void InitAbility();//パラメータ初期化
-    public abstract bool CheckType(UnitType type);//ユニットのタイプ確認
 
     public ActorsBehaviour(int move = 2, int attack = 1)
     {

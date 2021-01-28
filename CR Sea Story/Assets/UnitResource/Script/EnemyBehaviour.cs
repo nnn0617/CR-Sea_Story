@@ -3,6 +3,8 @@ using ActorsState;
 
 public class EnemyBehaviour : ActorsBehaviour
 {
+    [SerializeField] private PlayerBehaviour _player;
+
     void Start()
     {
         _type = UnitType.Enemy;
@@ -30,17 +32,17 @@ public class EnemyBehaviour : ActorsBehaviour
         _attackRange = 1;
     }
 
-    public override bool CheckType(UnitType type)
+    public override void UnitUpdate()
     {
-        return _type == type;
     }
 
-    public override void UnitUpdate()
+    private void PlayerUnitSearch()
     {
     }
 
     public void IdleUpdate()
     {
+        
     }
 
     public void SelectUpdate()

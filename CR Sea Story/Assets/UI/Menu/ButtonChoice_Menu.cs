@@ -5,6 +5,8 @@ using DG.Tweening;
 
 public class ButtonChoice_Menu : MonoBehaviour
 {
+    [SerializeField] private float _scaleValue;
+
     void Start()
     {
         Button button = GetComponent<Button>();
@@ -14,7 +16,7 @@ public class ButtonChoice_Menu : MonoBehaviour
         EventTrigger.Entry pointEnter = new EventTrigger.Entry();
         pointEnter.eventID = EventTriggerType.PointerEnter;
         pointEnter.callback.AddListener((data) => {
-            transform.DOScale(1.05f, 0.5f).SetEase(Ease.OutElastic);
+            transform.DOScale(_scaleValue, 0.5f).SetEase(Ease.OutElastic);
             Debug.Log("選択中");
         });
 

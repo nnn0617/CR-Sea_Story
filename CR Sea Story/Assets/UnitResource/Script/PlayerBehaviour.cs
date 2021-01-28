@@ -55,11 +55,6 @@ public class PlayerBehaviour : ActorsBehaviour
         _menuPanel.SetActive(false);
     }
 
-    public override bool CheckType(UnitType type)
-    {
-        return _type == type;
-    }
-
     public override void UnitUpdate()
     {
         if(_stateProcessor.State == null) return;

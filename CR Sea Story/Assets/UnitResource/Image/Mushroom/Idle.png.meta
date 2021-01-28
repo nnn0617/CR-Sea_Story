@@ -137,18 +137,18 @@ TextureImporter:
       name: Idle_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 150
-        height: 150
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 170
+        y: 130
+        width: 62
+        height: 100
+      alignment: 9
+      pivot: {x: 0.56350756, y: 0.4803122}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a6d675e2bec382b49939789ac442ef07
+      spriteID: af7f6ef4802bdb249a82dbc300f6bb2b
       internalID: 4723107735738678597
       vertices: []
       indices: 
@@ -158,18 +158,18 @@ TextureImporter:
       name: Idle_1
       rect:
         serializedVersion: 2
-        x: 150
-        y: 0
-        width: 150
-        height: 150
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 570
+        y: 130
+        width: 62
+        height: 97
+      alignment: 9
+      pivot: {x: 0.56350607, y: 0.47970346}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7783950422e08a54da2d0eec1b7c4e42
+      spriteID: 80f8e488586c7254a921d6e3ba769c8f
       internalID: -7385789195546760866
       vertices: []
       indices: 
@@ -179,18 +179,18 @@ TextureImporter:
       name: Idle_2
       rect:
         serializedVersion: 2
-        x: 300
-        y: 0
-        width: 150
-        height: 150
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 970
+        y: 130
+        width: 62
+        height: 94
+      alignment: 9
+      pivot: {x: 0.531754, y: 0.45811155}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7d07a2bfa7d34474ca8d6b9fbf48e946
+      spriteID: b74c2198abc12ca458b5363b9b0765ca
       internalID: 3234629978573100161
       vertices: []
       indices: 
@@ -200,18 +200,18 @@ TextureImporter:
       name: Idle_3
       rect:
         serializedVersion: 2
-        x: 450
-        y: 0
-        width: 150
-        height: 150
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 1370
+        y: 130
+        width: 62
+        height: 97
+      alignment: 9
+      pivot: {x: 0.53175205, y: 0.47970346}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 996a875c14f82334cbb937dea20b6223
+      spriteID: 6319a5a33ed54d44984cc81d74255687
       internalID: 6373048116405451881
       vertices: []
       indices: 
