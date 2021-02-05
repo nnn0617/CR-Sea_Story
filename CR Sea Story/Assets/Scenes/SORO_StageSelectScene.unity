@@ -415,7 +415,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Button
+  m_Text: Stage1
 --- !u!222 &486809201
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -965,7 +965,6 @@ GameObject:
   - component: {fileID: 1468899511}
   - component: {fileID: 1468899515}
   - component: {fileID: 1468899514}
-  - component: {fileID: 1468899516}
   - component: {fileID: 1468899513}
   - component: {fileID: 1468899512}
   - component: {fileID: 1468899517}
@@ -1038,18 +1037,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1468899513}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1468899516}
-        m_MethodName: ShowWindow
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1468899513
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1098,18 +1086,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1468899510}
   m_CullTransparentMesh: 0
---- !u!114 &1468899516
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1468899510}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ada94d4acc97c5459783efa6a9fd443, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1468899517
 MonoBehaviour:
   m_ObjectHideFlags: 0

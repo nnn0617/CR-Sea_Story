@@ -13,6 +13,6 @@ public class Jump : MonoBehaviour
 
     void StartNewRecordAnim()
     {
-        rectTransform.DOLocalMoveY(20f, 0.6f).SetRelative(true).SetEase(Ease.OutQuad).SetLoops(-1, LoopType.Yoyo);
+        rectTransform.DOLocalMoveY(30f, 0.5f).SetRelative(true).SetEase(Ease.OutQuad).SetLoops(-1, LoopType.Yoyo);
     }
 }
