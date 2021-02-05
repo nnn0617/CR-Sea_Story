@@ -13,17 +13,16 @@ public abstract class ActorsBehaviour : MonoBehaviour
     public StateMove StateMove;           //移動状態
     public StateAttack StateAttack;       //攻撃状態
     public StateIntercept StateIntercept; //傍受状態
-
-    //ユニットのタイプ
-    public enum UnitType
+   
+    public enum UnitType    //ユニットのタイプ
     {
         Player, //プレイヤー
         Enemy   //敵
     }
-
     protected UnitType _type;
 
-    protected Vector3 _diffPos;//移動先の座標
+    protected Vector3 _startPos;//移動開始座標
+    protected Vector3 _diffPos;//移動先座標
     protected Vector3 _actionVec;//行動範囲ベクトル
     protected Vector3 _moveX = new Vector3(1.0f, 0f, 0f);
     protected Vector3 _moveY = new Vector3(0f, 1.0f, 0f);
@@ -42,11 +41,13 @@ public abstract class ActorsBehaviour : MonoBehaviour
     public int moveRange { get { return _moveRange; } }
     public int attackRange { get { return _attackRange; } }
 
+    //値取得用
     public bool GetSelectionFlag { get { return _stateProcessor.State == StateSelect; } }
     public bool GetAttackFlag { get { return _stateProcessor.State == StateAttack; } }
     public int GetUnitType { get { return (int)_type; } }
 
-    protected abstract void InitAbility();//パラメータ初期化
+    //パラメータ初期化
+    protected abstract void InitAbility();
 
     public ActorsBehaviour(int move = 2, int attack = 1)
     {
@@ -72,10 +73,9 @@ public abstract class ActorsBehaviour : MonoBehaviour
         _diffPos.z = 0f;
 
         float range = Mathf.Abs(_diffPos.x) + Mathf.Abs(_diffPos.y);
-        if (range > actionRange)
-        {
-            return true;
-        }
+
+        if (range > actionRange) return true;
+
         return false;
     }
 

@@ -4,8 +4,6 @@ using ActorsState;
 
 public class PlayerBehaviour : ActorsBehaviour
 {
-    private Vector3Int _startPos;//選択時のユニット座標
-
     private GameObject _menuPanel;
     private bool _menuFlag;
 
@@ -57,7 +55,7 @@ public class PlayerBehaviour : ActorsBehaviour
 
     public override void UnitUpdate()
     {
-        if(_stateProcessor.State == null) return;
+        //if(_stateProcessor.State == null) return;
 
         _stateProcessor.Execute();//更新処理(状態によって変化)
 
@@ -157,15 +155,15 @@ public class PlayerBehaviour : ActorsBehaviour
         _actionVec = _diffPos - _startPos;
 
         float range = Mathf.Abs(_actionVec.x) + Mathf.Abs(_actionVec.y);
+
         if (range > actionRange) return true;
 
         if (_actionVec.x < 0
             || transform.position.x > Input.mousePosition.x)
         {
-            _isRight = -1f;
+            _isRight = -1f;//画像反転
         }
-
-        transform.localScale = new Vector3(_isRight, 1, 1);//画像反転
+        transform.localScale = new Vector3(_isRight, 1, 1);
 
         return false;
     }
@@ -226,7 +224,7 @@ public class PlayerBehaviour : ActorsBehaviour
         {
             _actionVec = new Vector3(0, 0, 0);
             _animator.SetBool("run", false);
-            _menuPanel.SetActive(_menuFlag);
+            _menuPanel.SetActive(true);
             _stateProcessor.State = StateAttack;
         }
     }

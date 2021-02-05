@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using UnityEngine;
-
+﻿
 namespace ActorsState
 {
     public class StateProcessor //実行管理クラス

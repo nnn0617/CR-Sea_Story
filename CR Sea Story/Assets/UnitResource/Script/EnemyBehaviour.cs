@@ -1,15 +1,26 @@
 ﻿using UnityEngine;
 using ActorsState;
+using DG.Tweening;
+using System.Collections.Generic;
 
 public class EnemyBehaviour : ActorsBehaviour
 {
-    [SerializeField] private PlayerBehaviour _player;
+    private GameObject[] _playerObjects;
+    private List<PlayerBehaviour> _players;
+    private Vector3 _distanceToPlayer;
 
     void Start()
     {
         _type = UnitType.Enemy;
         _isMoving = false;
         InitAbility();
+
+        _players = new List<PlayerBehaviour>();
+        _playerObjects = GameObject.FindGameObjectsWithTag("Player");
+        foreach (var player in _playerObjects)
+        {
+            _players.Add(player.GetComponent<PlayerBehaviour>());
+        }
 
         _stateProcessor = new StateProcessor();
         StateIdle = new StateIdle();           //待機状態
@@ -34,15 +45,26 @@ public class EnemyBehaviour : ActorsBehaviour
 
     public override void UnitUpdate()
     {
+        _stateProcessor.Execute();
     }
 
     private void PlayerUnitSearch()
     {
+        foreach (var player in _players)
+        {
+            Vector3 playerPos = player.transform.position;
+            _distanceToPlayer = playerPos - transform.position;
+        }
     }
 
     public void IdleUpdate()
     {
-        
+        PlayerUnitSearch();
+        //transform.position = _startPos;
+
+        _stateProcessor.State = StateSelect;
+        _animator.SetBool("run", true);
+        transform.DOScale(1.3f, 0.5f).SetEase(Ease.OutElastic);
     }
 
     public void SelectUpdate()
