@@ -16,6 +16,7 @@ public class ReGame : MonoBehaviour
     {
         if (!isCalledOnce)
         {
+            ButtonSE.PlayOneShot(ButtonSE.clip);
             isCalledOnce = true;
             FadeManager.FadeOut(4);
             Debug.Log("GameSceneへ");

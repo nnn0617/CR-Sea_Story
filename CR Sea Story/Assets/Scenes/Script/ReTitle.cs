@@ -16,6 +16,7 @@ public class ReTitle : MonoBehaviour
     {
         if (!isCalledOnce)
         {
+            ButtonSE.PlayOneShot(ButtonSE.clip);
             isCalledOnce = true;
             FadeManager.FadeOut(0);
             Debug.Log("Titleへ");

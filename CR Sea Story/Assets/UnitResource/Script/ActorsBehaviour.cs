@@ -27,6 +27,7 @@ public abstract class ActorsBehaviour : MonoBehaviour
     protected Vector3 _moveX = new Vector3(1.0f, 0f, 0f);
     protected Vector3 _moveY = new Vector3(0f, 1.0f, 0f);
     protected float _speed;
+    protected int _life;
 
     protected int _moveRange;//移動範囲
     protected int _attackRange;//攻撃範囲

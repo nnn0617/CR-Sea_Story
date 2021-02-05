@@ -19,6 +19,7 @@ public class TitleScene : MonoBehaviour
         {
             if (Input.anyKey)
             {
+                ButtonSE.PlayOneShot(ButtonSE.clip);
                 isCalledOnce = true;
                 //SceneManager.LoadScene("MenuScene");
                 FadeManager.FadeOut(1);

@@ -47,6 +47,7 @@ public class PlayerBehaviour : ActorsBehaviour
         _moveRange = 3;
         _attackRange = 1;
         _speed = 8;
+        _life = 5;
 
         _actionVec = new Vector3(0, 0, 0);
 
@@ -55,7 +56,7 @@ public class PlayerBehaviour : ActorsBehaviour
 
     public override void UnitUpdate()
     {
-        //if(_stateProcessor.State == null) return;
+        if (_stateProcessor.State == null) return;
 
         _stateProcessor.Execute();//更新処理(状態によって変化)
 

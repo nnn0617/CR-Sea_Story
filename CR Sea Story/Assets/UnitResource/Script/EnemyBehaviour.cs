@@ -22,6 +22,8 @@ public class EnemyBehaviour : ActorsBehaviour
             _players.Add(player.GetComponent<PlayerBehaviour>());
         }
 
+        _animator = GetComponent<Animator>();
+
         _stateProcessor = new StateProcessor();
         StateIdle = new StateIdle();           //待機状態
         StateSelect = new StateSelect();       //選択状態
@@ -41,6 +43,8 @@ public class EnemyBehaviour : ActorsBehaviour
     {
         _moveRange = 3;
         _attackRange = 1;
+        _speed = 5;
+        _life = 2;
     }
 
     public override void UnitUpdate()
@@ -63,8 +67,8 @@ public class EnemyBehaviour : ActorsBehaviour
         //transform.position = _startPos;
 
         _stateProcessor.State = StateSelect;
-        _animator.SetBool("run", true);
-        transform.DOScale(1.3f, 0.5f).SetEase(Ease.OutElastic);
+        _animator.SetBool("run", false);
+        //transform.DOScale(1.3f, 0.5f).SetEase(Ease.OutElastic);
     }
 
     public void SelectUpdate()

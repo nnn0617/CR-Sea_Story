@@ -34,7 +34,6 @@ public class ButtonChoice_Menu : MonoBehaviour
     }
 
     void Update()
-    {
-        
+    {      
     }
 }
